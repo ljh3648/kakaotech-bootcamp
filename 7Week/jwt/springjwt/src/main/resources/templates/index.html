@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h1>환영합니다!</h1>
+<div>
+    <a th:href="@{/users/me}">
+        <button type="button">내 정보</button>
+    </a>
+</div>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">로그아웃</button>
+    </form>
+</div>
+<hr>
+<h3>현재 토큰</h3>
+<p>Access Token: <span th:text="${accessToken ?: '없음'}"></span></p>
+<p>Refresh Token: <span th:text="${refreshToken ?: '없음'}"></span></p>
+
+<button id="refreshBtn">토큰 갱신</button>
+</body>
+<script>
+    document.getElementById("refreshBtn").addEventListener("click", async () => {
+        const res = await fetch("/refresh", {
+            method: "POST",
+            credentials: "include" // 쿠키 포함 필수
+        });
+        const data = await res.json();
+
+        if (res.ok) location.reload();
+        else alert(data.error || "토큰 갱신 실패");
+    });
+</script>
+</html>

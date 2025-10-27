@@ -1,0 +1,23 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/springjwt?serverTimezone=UTC&useSSL=false
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+        hibernate:
+            ddl-auto: create
+        properties:
+            hibernate:
+                format_sql: true
+
+    profiles:
+        active: driver
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    
+
+
